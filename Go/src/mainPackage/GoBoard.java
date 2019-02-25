@@ -1,66 +1,90 @@
 package mainPackage;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Container;
+import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.Image;
-import java.awt.image.BufferedImage;
-import javax.swing.ImageIcon;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
-public class GoBoard {
+import javax.swing.JButton;
+import javax.swing.JPanel;
+
+@SuppressWarnings("serial")
+public class GoBoard extends JPanel {
 	
-	private int boardSize;
-	private int  gridSize;
-	private Image image;
-	private ImageIcon imageIcon;
-	private JLabel jLabel;
-	private JFrame jFrame;
+	int boardSize = 9;
+	int tiles = boardSize-1;
+	int gridSize = 40;
+	int borderSize = (125/100)*gridSize;
+
+	public enum State {BLACK, WHITE}
 	
-	public void goBoard() {
-        boardSize  = getInt( "n X n checker board for what value of n? [2 - 10]?" );
-        gridSize = getInt( "How many pixels per square? [1 - 100]?" );
-        int imageSize = boardSize * gridSize;       
-        image = new BufferedImage( imageSize, imageSize, BufferedImage.TYPE_INT_ARGB );
-        imageIcon = new ImageIcon( image );
-        jLabel = new JLabel( imageIcon );
-        jFrame = new JFrame( "Go Board" );
-        jFrame.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
-        Container container = jFrame.getContentPane();
-        container.setLayout( new BorderLayout() );
-        container.add( jLabel, BorderLayout.CENTER );
-        jFrame.pack();
+	private State player;
+	
+	public GoBoard() {
+	    this.setBackground(Color.ORANGE);
+	    JPanel panel = new JPanel();
+	    // Black always starts
+	    player = State.BLACK;
+	
+	    this.addMouseListener(new MouseAdapter() {
+	
+	        @Override
+	        public void mouseReleased(MouseEvent e) {
+	        	
+	            int row = Math.round((float) (e.getY() - borderSize)
+	                    / gridSize);
+	            int col = Math.round((float) (e.getX() - borderSize)
+	                    / gridSize);
+
+	            // Check wherever it's valid
+	            if (row >= boardSize || col >= boardSize || row < 0 || col < 0) {
+	                return;
+	            }
+	            
+	            // Player Pass button
+	    		JButton button = new JButton("Pass");
+	    		panel.add(button);
+
+	            // Switch current player
+	            if (player == State.BLACK) {
+	            	player = State.WHITE;
+	            } else {
+	            	player = State.BLACK;
+	            }
+	            repaint();
+	        }
+	    });
 	}
 	
-	private int getInt( String question )
-    {
-        String intString = JOptionPane.showInputDialog( question );
-        return Integer.parseInt( intString );
-    }
-        
-    /**
-     * Paint the checker board onto the Image.
-     */
-    public void paint() {
-        Graphics graphics = image.getGraphics();
-        
-        // paint a red  board
-        graphics.setColor( Color.red );
-        graphics.fillRect( 0, 0, boardSize * gridSize, boardSize * gridSize);
-        
-        // paint the black squares
-        graphics.setColor( Color.black );
-        for ( int row = 0; row < boardSize; row++ )
-        {
-            for ( int col = row % 2; col < boardSize; col += 2 )
-            {
-                graphics.fillRect( row * gridSize, col * gridSize, gridSize, gridSize );
-            }
-        }
-    }
-    
-    public void view() { jFrame.setVisible( true ); }
+	@Override
+	protected void paintComponent(Graphics g) {
+	    super.paintComponent(g);
+	
+	    Graphics2D g2 = (Graphics2D) g;
+	    g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+	            RenderingHints.VALUE_ANTIALIAS_ON);
+	
+	    g2.setColor(Color.BLACK);
+	    // Draw rows.
+	    for (int i = 0; i < boardSize; i++) {
+	        g2.drawLine(borderSize, i * gridSize + borderSize, gridSize
+	                * tiles + borderSize, i * gridSize + borderSize);
+	    }
+	    // Draw columns.
+	    for (int i = 0; i < boardSize; i++) {
+	        g2.drawLine(i * gridSize + borderSize, borderSize, i * gridSize
+	                + borderSize, gridSize * tiles + borderSize);
+	    }
+	}
+
+	
+	@Override
+	public Dimension getPreferredSize() {
+	    return new Dimension(tiles * gridSize + borderSize * 2,
+	    		tiles * gridSize + borderSize * 2);
+	}
+
 }

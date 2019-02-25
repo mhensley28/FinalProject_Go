@@ -15,7 +15,7 @@ public class Draw extends JFrame{
     }
 
 	public Draw() {
-		this.setSize(1000,700);
+		this.setSize(1200,900);
 		this.setTitle("Go");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.add(new DrawStuff(), BorderLayout.CENTER);
@@ -41,9 +41,9 @@ public class Draw extends JFrame{
 		
 		public void paint(Graphics g) {
 			boardStart = 50;
-			boardDim = 500;
-			boardSize = 19;
-			gridSize = boardDim/(boardSize);
+			boardDim = 741;
+			boardSize = 9;
+			gridSize = boardDim/boardSize;
 			
 			
 			Graphics2D grid = (Graphics2D)g;

@@ -1,24 +1,35 @@
 package mainPackage;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
+import javax.swing.BorderFactory;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+
 public class PlayGo {
 
 	public static void main(String[] args) {
-		Go go = new Go();
-		GoBoard goBoard = new GoBoard();
-		go.initialize();
-		//go.printBoard();
-		goBoard.paint();
-		goBoard.view();
-		while(true) {
-			int[] nextMove = go.getNextMove();
-			//System.out.println(x[0] + " " + x[1]);
-			if(go.isMoveLegal(nextMove)) {
-				go.acceptMove(nextMove);				
-				go.changePlayer();
-				go.printBoard();	
-			};
-			
-
-		}
+	    new PlayGo().init();
+	}
+	
+	private void init() {
+		int borderSize = 25;
+	    JFrame f = new JFrame();
+	    f.setTitle("GO");
+	
+	    JPanel container = new JPanel();
+	    container.setBackground(Color.GRAY);
+	    container.setLayout(new BorderLayout());
+	    f.add(container);
+	    container.setBorder(BorderFactory.createEmptyBorder(borderSize, borderSize, borderSize, borderSize*6));
+	
+	    GoBoard board = new GoBoard();
+	    container.add(board);
+	
+	    f.pack();
+	    f.setResizable(false);
+	    f.setLocationByPlatform(true);
+	    f.setVisible(true);
 	}
 }
+
