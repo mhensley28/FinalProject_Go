@@ -13,7 +13,7 @@ import javax.swing.JPanel;
 
 @SuppressWarnings("serial")
 public class GoBoard extends JPanel {
-	
+
 	int boardSize = 9;
 	int tiles = boardSize-1;
 	int gridSize = 40;
@@ -26,6 +26,8 @@ public class GoBoard extends JPanel {
 	public GoBoard() {
 	    this.setBackground(Color.ORANGE);
 	    JPanel panel = new JPanel();
+	    Stone blackStone = new Stone();
+	    Stone whiteStone = new Stone();
 	    // Black always starts
 	    player = State.BLACK;
 	
