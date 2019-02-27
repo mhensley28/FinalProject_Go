@@ -43,11 +43,7 @@ public class PlayGo_main {
 	    /*
 	     * Get next stone location
 	     */
-	    PointerInfo a = MouseInfo.getPointerInfo();
-	    Point b = a.getLocation();
-	    int x = (int) b.getX();
-	    int y = (int) b.getY();
-	    System.out.println(x);
+	    
 	    
 	}
 }

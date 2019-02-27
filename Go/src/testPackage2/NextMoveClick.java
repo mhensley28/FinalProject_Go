@@ -32,6 +32,10 @@ public class NextMoveClick extends JPanel {
 		});
 	}
 	
+	public static final void MOUSE_RELEASED() {
+		
+	}
+	
 	public int getX() {
 		return x;
 	}
