@@ -2,30 +2,21 @@ package testPackage2;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.MouseInfo;
-import java.awt.Point;
-import java.awt.PointerInfo;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-
-public class PlayGo_main {
+public class PlayGo {
 
 	public static void main(String[] args) {
-		/*
-		 * Initialize board graphics
-		 */
-		int boardSize = 9;
-		int tiles = boardSize-1;
-		int gridSize = 40;
-		int borderSize = (125/100)*gridSize;
+	    new PlayGo().init();
+	}
+	
+	private void init() {
+		int borderSize = 25;
 	    JFrame f = new JFrame();
 	    f.setTitle("GO");
-
+	
 	    JPanel container = new JPanel();
 	    container.setBackground(Color.GRAY);
 	    container.setLayout(new BorderLayout());
@@ -39,25 +30,6 @@ public class PlayGo_main {
 	    f.setResizable(false);
 	    f.setLocationByPlatform(true);
 	    f.setVisible(true);
-
-	    /*
-	     * Get next stone location
-	     */
-	    
-	    
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
 

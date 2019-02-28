@@ -1,4 +1,4 @@
-package mainPackage;
+package testPackage2;
 
 public class Stone {
 

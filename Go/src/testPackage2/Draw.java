@@ -1,4 +1,4 @@
-package mainPackage;
+package testPackage2;
 
 import javax.swing.JComponent;
 import javax.swing.JFrame;

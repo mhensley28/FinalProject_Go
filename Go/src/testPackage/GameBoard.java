@@ -43,7 +43,7 @@ public class GameBoard extends JPanel {
 	            if (row >= boardSize || col >= boardSize || row < 0 || col < 0) {
 	                return;
 	            }
-	System.out.println("loop");
+	            
 	            if (grid.isOccupied(row, col)) {
 	                return;
 	            }

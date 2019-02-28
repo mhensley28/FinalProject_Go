@@ -1,4 +1,4 @@
-package mainPackage;
+package testPackage2;
 
 import java.awt.Color;
 import java.awt.Graphics;
