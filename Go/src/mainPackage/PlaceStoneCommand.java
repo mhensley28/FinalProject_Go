@@ -2,13 +2,15 @@ package mainPackage;
 
 import mainPackage.GoBoard.State;
 
-public class MoveCommand implements Command{
+public class PlaceStoneCommand implements Command{
 
 	public int row;
 	public int col;
 	State player;
+	int boardSize = GoBoard.getBoardSize();
+	int boardMatrixSize = boardSize*boardSize;
 
-	public MoveCommand(int row, int col, State state) {
+	public PlaceStoneCommand(int row, int col, State state) {
 		this.row = row;
 		this.col = col;
 		this.player = state;
@@ -16,7 +18,13 @@ public class MoveCommand implements Command{
 	
 	public void execute() {
 		// Insert stone into board array (Iterator Pattern)
-		
+		for(int i=0; i<boardMatrixSize; i++) {
+			if(player != null) {
+				
+			}else {
+				
+			}
+		}
 	}
 	
 	public void undo() {

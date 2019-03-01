@@ -7,6 +7,7 @@ import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 
 import javax.swing.JPanel;
 
@@ -14,14 +15,24 @@ import javax.swing.JPanel;
 @SuppressWarnings("serial")
 public class GoBoard extends JPanel {
 	
-	int boardSize = 9;
+	static int boardSize = 9;
 	int tiles = boardSize-1;
 	int gridSize = 40;
 	int borderSize = (125/100)*gridSize;
 	
 	public enum State {BLACK, WHITE}
 	
+	public static int getBoardSize() {
+		return boardSize;
+	}
+	
 	public State player;
+	
+	StoneArray blackStones = new StoneArray();
+	StoneArray whiteStones = new StoneArray();
+	ArrayList<IStoneArray> stoneMatrix = new ArrayList<IStoneArray>();
+	
+	Stones x;
 	
 	public GoBoard() {
 	    this.setBackground(Color.ORANGE);	
@@ -42,15 +53,20 @@ public class GoBoard extends JPanel {
 	                return;
 	            }
 	 
-	            MoveCommand moveCommand = new MoveCommand(row, col, player);
+	            PlaceStoneCommand placeStone = new PlaceStoneCommand(row, col, player);
 	            
-	            if(moveCommand.isLegal()) {
+	            if(placeStone.isLegal()) {
 	            	//add stone (Command Pattern)
-	            	
+	            	placeStone.execute();
+	            	stoneMatrix.add(blackStones);
+	            	stoneMatrix.add(whiteStones);
 	            }else {
 	            	//display 'Illegal Move!' on screen
 	            	return;
 	            }
+	            /*
+	             * Next, display stones.
+	             */
 	        }	
 		});
 	}
