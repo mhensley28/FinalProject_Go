@@ -65,7 +65,7 @@ public class GoBoard extends JPanel {
 	            	return;
 	            }
 	            /*
-	             * Next, display stones.
+	             * Next, display stones. 
 	             */
 	        }	
 		});
