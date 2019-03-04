@@ -73,7 +73,7 @@ public class GoBoard extends JPanel {
 	                return; 
 	            }
 	 
-	            System.out.println("Line 76 Player - " + player);
+	            //System.out.println("Line 76 Player - " + player);
 	            PlaceStoneCommand placeStone = new PlaceStoneCommand(row, col, player);
 	            placeStone.execute();
 
