@@ -14,11 +14,11 @@ public class Grid {
 	/**
 	 * [row][column]
 	*/
-	private Stone[][] stones;
+	private Stone_Test[][] stones;
 	
 	public Grid(int size) {
 	    SIZE = size;
-	    stones = new Stone[SIZE][SIZE];
+	    stones = new Stone_Test[SIZE][SIZE];
 	}
 	
 	/*
@@ -30,10 +30,10 @@ public class Grid {
 	 */
 	
 	public void addStone(int row, int col, State state) {
-	    Stone newStone = new Stone(row, col, state);
+	    Stone_Test newStone = new Stone_Test(row, col, state);
 	    stones[row][col] = newStone;
 	    // Check neighbors
-	    Stone[] neighbors = new Stone[4];
+	    Stone_Test[] neighbors = new Stone_Test[4];
 	    // Don't check outside the board
 	    if (row > 0) {
 	        neighbors[0] = stones[row - 1][col];
@@ -49,7 +49,7 @@ public class Grid {
 	    }
 	    // Prepare Chain for this new Stone
 	    Chain finalChain = new Chain(newStone.state);
-	    for (Stone neighbor : neighbors) {
+	    for (Stone_Test neighbor : neighbors) {
 	        // Do nothing if no adjacent Stone
 	        if (neighbor == null) {
 	            continue;
@@ -76,10 +76,10 @@ public class Grid {
 	 * 
 	 * @param stone
 	*/
-	public void checkStone(Stone stone) {
+	public void checkStone(Stone_Test stone) {
 	    // Every Stone is part of a Chain so we check total liberties
 	    if (stone.chain.getLiberties() == 0) {
-	        for (Stone s : stone.chain.stones) {
+	        for (Stone_Test s : stone.chain.stones) {
 	            s.chain = null;
 	            stones[s.row][s.col] = null;
 	        }
@@ -107,7 +107,7 @@ public class Grid {
 	 * */
 	
 	public State getState(int row, int col) {
-	    Stone stone = stones[row][col];
+	    Stone_Test stone = stones[row][col];
 	    if (stone == null) {
 	        return null;
 	    } else {

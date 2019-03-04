@@ -3,7 +3,7 @@ package testPackage;
 import testPackage.GameBoard.State;
 
 
-public class Stone {
+public class Stone_Test {
 
 	public Chain chain;
 	public State state;
@@ -12,7 +12,7 @@ public class Stone {
 	public int row;
 	public int col;
 	
-	public Stone(int row, int col, State state) {
+	public Stone_Test(int row, int col, State state) {
 	    chain = null;
 	    this.state = state;
 	    liberties = 4;

@@ -10,7 +10,7 @@ import java.util.ArrayList;
  
 public class Chain {
 
-	public ArrayList<Stone> stones;
+	public ArrayList<Stone_Test> stones;
 	public State state;
 	
 	public Chain(State state) {
@@ -19,19 +19,19 @@ public class Chain {
 	
 	public int getLiberties() {
 	    int total = 0;
-	    for (Stone stone : stones) {
+	    for (Stone_Test stone : stones) {
 	        total += stone.liberties;
 	    }
 	    return total;
 	}
 	
-	public void addStone(Stone stone) {
+	public void addStone(Stone_Test stone) {
 	    stone.chain = this;
 	    stones.add(stone);
 	}
 	
 	public void join(Chain chain) {
-	    for (Stone stone : chain.stones) {
+	    for (Stone_Test stone : chain.stones) {
 	        addStone(stone);
 	    }
 	}

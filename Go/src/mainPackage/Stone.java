@@ -2,13 +2,13 @@ package mainPackage;
 
 import mainPackage.GoBoard.Player;
 
-public class Stones {
+public class Stone {
 
 	Player player;
 	int row;
 	int col;
 	
-	public Stones(int row, int col, Player player) {
+	public Stone(int row, int col, Player player) {
 		this.player = player;
 		this.row = row;
 		this.col = col;

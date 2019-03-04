@@ -11,6 +11,8 @@ import java.util.ArrayList;
 
 import javax.swing.JPanel;
 
+import testPackage.GameBoard.State;
+
 
 @SuppressWarnings("serial")
 public class GoBoard extends JPanel {
@@ -32,7 +34,7 @@ public class GoBoard extends JPanel {
 	StoneArray whiteStones = new StoneArray();
 	ArrayList<IStoneArray> stoneMatrix = new ArrayList<IStoneArray>();
 	
-	Stones x;
+	Stone[][] stones;
 	
 	public GoBoard() {
 	    this.setBackground(Color.ORANGE);	
@@ -50,10 +52,12 @@ public class GoBoard extends JPanel {
 	
 	            // Check wherever it's valid
 	            if (row >= boardSize || col >= boardSize || row < 0 || col < 0) {
-	                return;
+	                return; 
 	            }
 	 
 	            PlaceStoneCommand placeStone = new PlaceStoneCommand(row, col, player);
+	            
+	            
 	            
 	            if(placeStone.isLegal()) {
 	            	//add stone (Command Pattern)
@@ -96,6 +100,25 @@ public class GoBoard extends JPanel {
 	    /*
 	     * Moves.AddStone //command
 	     */
+        PlaceStoneCommand placeStone = new PlaceStoneCommand(row, col, player);
+	    stones = placeStone.getStones();
+	    for (int row = 0; row < boardSize; row++) {
+	        for (int col = 0; col < boardSize; col++) {
+	        	
+	            Player player = Stone.getPlayer();
+	            if (state != null) {
+	                if (state == State.BLACK) {
+	                    g2.setColor(Color.BLACK);
+	                } else {
+	                    g2.setColor(Color.WHITE);
+	                }
+	                g2.fillOval(col * gridSize + borderSize - gridSize / 2,
+	                        row * gridSize + borderSize - gridSize / 2,
+	                        gridSize, gridSize);
+	            }
+	        }
+	    }
+	    
 	}
 	
 	@Override
