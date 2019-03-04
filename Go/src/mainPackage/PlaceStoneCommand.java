@@ -13,6 +13,8 @@ public class PlaceStoneCommand implements Command{
 	int boardSize = GoBoard.getBoardSize();
 	int boardMatrixSize = boardSize*boardSize;
 	Stone[][] stones = new Stone[boardSize][boardSize];
+	//StoneMatrix stoneMatrix = new StoneMatrix();
+	StoneMatrix stoneMatrix = GoBoard.getStoneMatrix();
 
 	public PlaceStoneCommand(int row, int col, Player player) {
 		this.row = row;
@@ -23,7 +25,9 @@ public class PlaceStoneCommand implements Command{
 	public void execute() {
 		Stone newStone = new Stone(row, col, player);
 			//place stone in array
-			stones[row][col] = newStone;
+			stoneMatrix.addStone(newStone);
+			//System.out.println("Placing stone - execute");
+			//System.out.println(row + "\t" + col + "\t" + player);
 	}
 	
 	public void undo() {

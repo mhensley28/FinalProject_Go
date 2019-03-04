@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 import javax.swing.JPanel;
 
-import testPackage.GameBoard.State;
+import mainPackage.GoBoard.Player;
 
 
 @SuppressWarnings("serial")
@@ -22,7 +22,7 @@ public class GoBoard extends JPanel {
 	int gridSize = 40;
 	int borderSize = (125/100)*gridSize;
 	
-	public enum Player {BLACK, WHITE}
+	public enum Player {BLACK, WHITE, NULL}
 	
 	public static int getBoardSize() {
 		return boardSize;
@@ -32,15 +32,32 @@ public class GoBoard extends JPanel {
 	
 	StoneArray blackStones = new StoneArray();
 	StoneArray whiteStones = new StoneArray();
-	ArrayList<IStoneArray> stoneMatrix = new ArrayList<IStoneArray>();
+
+	ArrayList<IStoneArray> stoneArray = new ArrayList<IStoneArray>();
 	
-	Stone[][] stones;
+	Stone[][] stones = new Stone[boardSize][boardSize];
+	
+    static StoneMatrix stoneMatrix = new StoneMatrix();
+    
+    public static StoneMatrix getStoneMatrix() {
+    	return stoneMatrix;
+    }
 	
 	public GoBoard() {
 	    this.setBackground(Color.ORANGE);	
-	
+	    
+	    //Initialize stoneMatrix
+	    for (int row = 0; row < boardSize; row++) {
+	        for (int col = 0; col < boardSize; col++) {
+	    	    Stone nullStone = new Stone(row, col, Player.NULL);
+	    	    stoneMatrix.addStone(nullStone);
+
+	        }
+	    }
+	    System.out.println("Initializing stoneMatrix...");
+	    
 	    player = Player.BLACK;
-	
+	    
 		this.addMouseListener(new MouseAdapter() {
 	    	
 	        @Override
@@ -49,28 +66,26 @@ public class GoBoard extends JPanel {
 	            // provide nearest intersection.
 	            int row = Math.round((float) (e.getY() - borderSize) / gridSize);
 	            int col = Math.round((float) (e.getX() - borderSize) / gridSize);
+	            //System.out.println(row + "\t" + col);
 	
 	            // Check wherever it's valid
 	            if (row >= boardSize || col >= boardSize || row < 0 || col < 0) {
 	                return; 
 	            }
 	 
+	            System.out.println("Line 76 Player - " + player);
 	            PlaceStoneCommand placeStone = new PlaceStoneCommand(row, col, player);
+	            placeStone.execute();
+
+	            if(player == Player.BLACK)
+	            	player = Player.WHITE;
+	            else
+	            	player = Player.BLACK;
 	            
-	            
-	            
-	            if(placeStone.isLegal()) {
-	            	//add stone (Command Pattern)
-	            	placeStone.execute();
-	            	stoneMatrix.add(blackStones);
-	            	stoneMatrix.add(whiteStones);
-	            }else {
-	            	//display 'Illegal Move!' on screen
-	            	return;
-	            }
 	            /*
 	             * Next, display stones. 
 	             */
+	            repaint();
 	        }	
 		});
 	}
@@ -96,18 +111,15 @@ public class GoBoard extends JPanel {
 	     * Moves.IsLegal(row, col)
 	     */
 
-	    
-	    /*
-	     * Moves.AddStone //command
-	     */
-        PlaceStoneCommand placeStone = new PlaceStoneCommand(row, col, player);
-	    stones = placeStone.getStones();
+	    Player currentPlayer;
+	    Stone currentStone;
 	    for (int row = 0; row < boardSize; row++) {
 	        for (int col = 0; col < boardSize; col++) {
-	        	
-	            Player player = Stone.getPlayer();
-	            if (state != null) {
-	                if (state == State.BLACK) {
+	    	    currentStone = stoneMatrix.getCurrentStone(row, col);
+	    	    currentPlayer = currentStone.getPlayer();
+	            //System.out.println("In FOR loop");
+	            if (currentPlayer != Player.NULL) {
+	                if (currentPlayer == Player.BLACK) {
 	                    g2.setColor(Color.BLACK);
 	                } else {
 	                    g2.setColor(Color.WHITE);
@@ -118,6 +130,7 @@ public class GoBoard extends JPanel {
 	            }
 	        }
 	    }
+
 	    
 	}
 	
@@ -128,6 +141,5 @@ public class GoBoard extends JPanel {
 	}
 	
 }
-
 
 
