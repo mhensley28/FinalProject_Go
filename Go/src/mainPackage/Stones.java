@@ -1,14 +1,14 @@
 package mainPackage;
 
-import mainPackage.GoBoard.State;
+import mainPackage.GoBoard.Player;
 
 public class Stones {
 
-	State player;
+	Player player;
 	int row;
 	int col;
 	
-	public Stones(int row, int col, State player) {
+	public Stones(int row, int col, Player player) {
 		this.player = player;
 		this.row = row;
 		this.col = col;
@@ -22,7 +22,7 @@ public class Stones {
 		return col;
 	}
 	
-	public State getState() {
+	public Player getPlayer() {
 		return player;
 	}
 }

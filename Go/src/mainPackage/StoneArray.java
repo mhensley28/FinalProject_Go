@@ -2,7 +2,7 @@ package mainPackage;
 
 import java.util.Iterator;
 
-import mainPackage.GoBoard.State;
+import mainPackage.GoBoard.Player;
 
 
 public class StoneArray implements IStoneArray{
@@ -17,7 +17,7 @@ public class StoneArray implements IStoneArray{
 		stones = new Stones[stoneMatrixSize];
 	}
 	
-	public void addItem(int row, int col, State player) {
+	public void addItem(int row, int col, Player player) {
 		Stones stone = new Stones(row, col, player);
 		int matrixElement = (col+1)*boardSize + row;
 		if (numberOfItems >= MAX_ITEMS || stones[matrixElement] != null) {

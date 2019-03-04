@@ -34,7 +34,7 @@ public class PlayGo_main {
 	
 	    GoBoard board = new GoBoard();
 	    container.add(board);
-	
+
 	    f.pack();
 	    f.setResizable(false);
 	    f.setLocationByPlatform(true);

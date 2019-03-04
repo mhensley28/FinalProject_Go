@@ -1,19 +1,19 @@
 package mainPackage;
 
-import mainPackage.GoBoard.State;
+import mainPackage.GoBoard.Player;
 
 public class PlaceStoneCommand implements Command{
 
 	public int row;
 	public int col;
-	State player;
+	Player player;
 	int boardSize = GoBoard.getBoardSize();
 	int boardMatrixSize = boardSize*boardSize;
 
-	public PlaceStoneCommand(int row, int col, State state) {
+	public PlaceStoneCommand(int row, int col, Player player) {
 		this.row = row;
 		this.col = col;
-		this.player = state;
+		this.player = player;
 	}
 	
 	public void execute() {
