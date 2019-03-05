@@ -25,8 +25,10 @@ public class PlayGo_main {
 		int borderSize = (125/100)*gridSize;
 	    JFrame f = new JFrame();
 	    f.setTitle("GO");
+	    f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 	    JPanel container = new JPanel();
+	   
 	    container.setBackground(Color.GRAY);
 	    container.setLayout(new BorderLayout());
 	    f.add(container);

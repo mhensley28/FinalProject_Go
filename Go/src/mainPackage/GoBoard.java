@@ -75,8 +75,10 @@ public class GoBoard extends JPanel {
 	 
 	            //System.out.println("Line 76 Player - " + player);
 	            PlaceStoneCommand placeStone = new PlaceStoneCommand(row, col, player);
-	            placeStone.execute();
-
+	            if(placeStone.isLegal())
+	            	placeStone.execute();
+	            	
+	            	
 	            if(player == Player.BLACK)
 	            	player = Player.WHITE;
 	            else

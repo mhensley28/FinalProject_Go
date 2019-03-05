@@ -36,10 +36,12 @@ public class PlaceStoneCommand implements Command{
 	}
 	
 	public boolean isLegal() {
-		//if legal
-		return true;
-		//else
-		//return false;
+		Stone currentStone = stoneMatrix.getCurrentStone(row, col);
+		if(currentStone.getPlayer() == Player.NULL)
+			return true;
+		else
+			return false;
+		
 	}
 	
 	public Stone[][] getStones() {
