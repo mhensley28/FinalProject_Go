@@ -12,6 +12,7 @@ public class HorizontalLines extends LinesDecorator{
 	int tiles = boardSize-1;
 	int gridSize = 40;
 	int borderSize = (125/100)*gridSize;
+	//int borderSize = 2*gridSize;
 	
 	public void drawLines(Graphics g) {
 		super.paintComponent(g);

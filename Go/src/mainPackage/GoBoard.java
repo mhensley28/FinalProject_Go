@@ -11,9 +11,6 @@ import java.util.ArrayList;
 
 import javax.swing.JPanel;
 
-import mainPackage.GoBoard.Player;
-
-
 @SuppressWarnings("serial")
 public class GoBoard extends JPanel {
 	
@@ -39,8 +36,19 @@ public class GoBoard extends JPanel {
 	
     static StoneMatrix stoneMatrix = new StoneMatrix();
     
+    static StoneArray blackStoneArray = new StoneArray();
+    static StoneArray whiteStoneArray = new StoneArray();
+    
     public static StoneMatrix getStoneMatrix() {
     	return stoneMatrix;
+    }
+    
+    public static StoneArray getBlackStoneArray() {
+    	return blackStoneArray;
+    }
+    
+    public static StoneArray getWhiteStoneArray() {
+    	return whiteStoneArray;
     }
 	
 	public GoBoard() {
@@ -54,7 +62,6 @@ public class GoBoard extends JPanel {
 
 	        }
 	    }
-	    System.out.println("Initializing stoneMatrix...");
 	    
 	    player = Player.BLACK;
 	    
@@ -77,16 +84,14 @@ public class GoBoard extends JPanel {
 	            PlaceStoneCommand placeStone = new PlaceStoneCommand(row, col, player);
 	            if(placeStone.isLegal())
 	            	placeStone.execute();
-	            	
+	            	System.out.println("Black stones off board: " + blackStoneArray.getNumberOfStones());
+	            	System.out.println("White stones off board: " + whiteStoneArray.getNumberOfStones());
 	            	
 	            if(player == Player.BLACK)
 	            	player = Player.WHITE;
 	            else
 	            	player = Player.BLACK;
-	            
-	            /*
-	             * Next, display stones. 
-	             */
+
 	            repaint();
 	        }	
 		});

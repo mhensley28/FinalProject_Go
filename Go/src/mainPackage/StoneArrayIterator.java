@@ -2,18 +2,18 @@ package mainPackage;
 
 import java.util.Iterator;
 
-public class StoneArrayIterator implements Iterator<Stone> {
-	Stone[] stoneArr;
+public class StoneArrayIterator implements Iterator<StoneUnplayed> {
+	StoneUnplayed[] stoneArr;
 	int position = 0;
  
-	public StoneArrayIterator(Stone[] stoneArr) {
+	public StoneArrayIterator(StoneUnplayed[] stoneArr) {
 		this.stoneArr = stoneArr;
 	}
  
-	public Stone next() {
-		Stone stone = stoneArr[position];
+	public StoneUnplayed next() {
+		StoneUnplayed stoneUnplayed = stoneArr[position];
 		position = position + 1;
-		return stone;
+		return stoneUnplayed;
 	}
  
 	public boolean hasNext() {

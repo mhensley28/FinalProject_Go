@@ -4,6 +4,7 @@ import java.awt.Graphics;
 
 import mainPackage.GoBoard.Player;
 
+
 public class PlaceStoneCommand implements Command{
 	
 	Graphics g;
@@ -15,6 +16,8 @@ public class PlaceStoneCommand implements Command{
 	Stone[][] stones = new Stone[boardSize][boardSize];
 	//StoneMatrix stoneMatrix = new StoneMatrix();
 	StoneMatrix stoneMatrix = GoBoard.getStoneMatrix();
+	StoneArray blackStoneArray = GoBoard.getBlackStoneArray();
+	StoneArray whiteStoneArray = GoBoard.getWhiteStoneArray();
 
 	public PlaceStoneCommand(int row, int col, Player player) {
 		this.row = row;
@@ -24,10 +27,18 @@ public class PlaceStoneCommand implements Command{
 	
 	public void execute() {
 		Stone newStone = new Stone(row, col, player);
+		int stoneNum;
+		if(player == Player.BLACK) {
+			stoneNum = blackStoneArray.getNumberOfStones();
+			blackStoneArray.removeStone(stoneNum);
+		}else {
+			stoneNum = whiteStoneArray.getNumberOfStones();
+			whiteStoneArray.removeStone(stoneNum);
+		}
 			//place stone in array
 			stoneMatrix.addStone(newStone);
-			//System.out.println("Placing stone - execute");
-			//System.out.println(row + "\t" + col + "\t" + player);
+			//remove unplayed stone from beside board
+
 	}
 	
 	public void undo() {

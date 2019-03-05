@@ -19,8 +19,6 @@ public class PlayGo_main {
 		/*
 		 * Initialize board graphics
 		 */
-		int boardSize = 9;
-		int tiles = boardSize-1;
 		int gridSize = 40;
 		int borderSize = (125/100)*gridSize;
 	    JFrame f = new JFrame();
