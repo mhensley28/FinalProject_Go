@@ -22,7 +22,7 @@ public class VerticalLines extends LinesDecorator{
 	
 	    g2.setColor(Color.BLACK);
 	    for (int i = 0; i < boardSize; i++) {
-	        g2.drawLine(i * gridSize + leftBorderSize, borderSize, i * gridSize + rightBorderSize, gridSize * tiles + borderSize);
+	        g2.drawLine(i*gridSize + leftBorderSize, borderSize + gridSize, i*gridSize + rightBorderSize, gridSize*(1+tiles) + borderSize);
 	    }
 	}
 

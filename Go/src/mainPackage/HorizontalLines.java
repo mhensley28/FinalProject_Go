@@ -23,7 +23,7 @@ public class HorizontalLines extends LinesDecorator{
 	
 	    g2.setColor(Color.BLACK);
 	    for (int i = 0; i < boardSize; i++) {
-	        g2.drawLine(leftBorderSize, i * gridSize + borderSize, gridSize * tiles + rightBorderSize, i * gridSize + borderSize);
+	        g2.drawLine(leftBorderSize, (i+1)*gridSize + borderSize, gridSize*tiles + rightBorderSize, (i+1)*gridSize + borderSize);
 	    }
 	}
 

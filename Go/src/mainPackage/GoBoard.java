@@ -18,7 +18,8 @@ public class GoBoard extends JPanel {
 	int tiles = boardSize-1;
 	int gridSize = 40;
 	int borderSize = (125/100)*gridSize;
-	int leftBorderSize = 4*borderSize;
+	int leftBorderSize = 4*(125/100)*gridSize;
+	int rightBorderSize = 4*(125/100)*gridSize;
 	
 	public enum Player {BLACK, WHITE, NULL}
 	
@@ -75,7 +76,7 @@ public class GoBoard extends JPanel {
 	            // provide nearest intersection.
 	        	int x = Math.round((float) (e.getX()));
 	        	int y = Math.round((float) (e.getY()));
-	            int row = Math.round((float) (e.getY() - borderSize) / gridSize);
+	            int row = Math.round((float) (e.getY() - 2*borderSize) / gridSize);
 	            int col = Math.round((float) (e.getX() - leftBorderSize) / gridSize);
 	            System.out.println("(x,y) : (" + x + "," + y + ")"); 
 	            System.out.println("(c,r) : (" + col + "," + row + ")");
@@ -107,10 +108,14 @@ public class GoBoard extends JPanel {
 	    HorizontalLines horizontalLines = new HorizontalLines();
 	    
 	    super.paintComponent(g);
+	    
+	    Graphics2D g1 = (Graphics2D) g;
+	    g1.setColor(Color.ORANGE);
+	    g1.fillRect(leftBorderSize - gridSize, borderSize, (boardSize+1)*gridSize, (boardSize+1)*gridSize);
 	
 	    Graphics2D g2 = (Graphics2D) g;
 	    g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-	
+	    
 	    g2.setColor(Color.BLACK);	   
 	    
 	    //draw vertical lines
@@ -131,9 +136,7 @@ public class GoBoard extends JPanel {
 	                } else {
 	                    g2.setColor(Color.WHITE);
 	                }
-	                g2.fillOval(col * gridSize + leftBorderSize - gridSize / 2,
-	                        row * gridSize + borderSize - gridSize / 2,
-	                        gridSize, gridSize);
+	                g2.fillOval(col * gridSize + leftBorderSize - gridSize / 2, row * gridSize + 2*borderSize - gridSize / 2, gridSize, gridSize);
 	            }
 	        }
 	    }
@@ -144,10 +147,11 @@ public class GoBoard extends JPanel {
 	    
 	}
 	
+	//Set size of graphics space
 	@Override
 	public Dimension getPreferredSize() {
-	    return new Dimension(tiles * gridSize*2 + borderSize * 2,
-	    		tiles * gridSize + borderSize * 2);
+	    //return new Dimension(tiles*gridSize*2 + borderSize/2, tiles*gridSize + borderSize*4);
+	    return new Dimension(leftBorderSize + tiles*gridSize + rightBorderSize, tiles*gridSize + borderSize*4);
 	}
 	
 }
