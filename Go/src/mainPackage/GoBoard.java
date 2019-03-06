@@ -141,9 +141,24 @@ public class GoBoard extends JPanel {
 	        }
 	    }
 	    
+	    int blackStonesUnplayed = blackStoneArray.getNumberOfStones();
+	    int whiteStonesUnplayed = whiteStoneArray.getNumberOfStones();
 	    Graphics2D g3 = (Graphics2D) g;
 	    g3.setColor(Color.BLACK);
-	    g3.drawString("Hello", 375, 300);
+	    String StrBlackStonesUnplayed = Integer.toString(blackStonesUnplayed);
+	    String StrWhiteStonesUnplayed = Integer.toString(whiteStonesUnplayed);
+	    
+	    int blackStrX = 540;
+	    int blackStrY = 350;
+	    g3.drawString("Black Stones", blackStrX, blackStrY);
+	    g3.drawString("Unused", blackStrX+15, blackStrY+12);
+	    g3.drawString(StrBlackStonesUnplayed, blackStrX+32, blackStrY+30);
+	    
+	    int whiteStrX = 15;
+	    int whiteStrY = blackStrY;
+	    g3.drawString("White Stones", whiteStrX, whiteStrY);
+	    g3.drawString("Unused", whiteStrX+15, whiteStrY+12);
+	    g3.drawString(StrWhiteStonesUnplayed, whiteStrX+32, whiteStrY+30);
 	    
 	}
 	

@@ -15,6 +15,9 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+/*
+ * Go_20190305-2107
+ */
 
 public class PlayGo_main {
 
