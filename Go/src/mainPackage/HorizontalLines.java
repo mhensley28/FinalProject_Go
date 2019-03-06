@@ -12,7 +12,9 @@ public class HorizontalLines extends LinesDecorator{
 	int tiles = boardSize-1;
 	int gridSize = 40;
 	int borderSize = (125/100)*gridSize;
-	//int borderSize = 2*gridSize;
+	int leftBorderSize = 4*borderSize;
+	int rightBorderSize = 4*borderSize;
+	//int borderSize = 4*gridSize;
 	
 	public void drawLines(Graphics g) {
 		super.paintComponent(g);
@@ -21,7 +23,7 @@ public class HorizontalLines extends LinesDecorator{
 	
 	    g2.setColor(Color.BLACK);
 	    for (int i = 0; i < boardSize; i++) {
-	        g2.drawLine(borderSize, i * gridSize + borderSize, gridSize * tiles + borderSize, i * gridSize + borderSize);
+	        g2.drawLine(leftBorderSize, i * gridSize + borderSize, gridSize * tiles + rightBorderSize, i * gridSize + borderSize);
 	    }
 	}
 

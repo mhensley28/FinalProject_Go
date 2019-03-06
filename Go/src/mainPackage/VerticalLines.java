@@ -12,6 +12,8 @@ public class VerticalLines extends LinesDecorator{
 	int tiles = boardSize-1;
 	int gridSize = 40;
 	int borderSize = (125/100)*gridSize;
+	int leftBorderSize = 4*borderSize;
+	int rightBorderSize = 4*borderSize;
 	
 	public void drawLines(Graphics g) {
 		super.paintComponent(g);
@@ -20,7 +22,7 @@ public class VerticalLines extends LinesDecorator{
 	
 	    g2.setColor(Color.BLACK);
 	    for (int i = 0; i < boardSize; i++) {
-	        g2.drawLine(i * gridSize + borderSize, borderSize, i * gridSize + borderSize, gridSize * tiles + borderSize);
+	        g2.drawLine(i * gridSize + leftBorderSize, borderSize, i * gridSize + rightBorderSize, gridSize * tiles + borderSize);
 	    }
 	}
 

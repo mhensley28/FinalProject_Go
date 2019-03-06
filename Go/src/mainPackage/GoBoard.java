@@ -18,6 +18,7 @@ public class GoBoard extends JPanel {
 	int tiles = boardSize-1;
 	int gridSize = 40;
 	int borderSize = (125/100)*gridSize;
+	int leftBorderSize = 4*borderSize;
 	
 	public enum Player {BLACK, WHITE, NULL}
 	
@@ -52,7 +53,8 @@ public class GoBoard extends JPanel {
     }
 	
 	public GoBoard() {
-	    this.setBackground(Color.ORANGE);	
+	    //this.setBackground(Color.ORANGE);
+	    this.setBackground(Color.WHITE);
 	    
 	    //Initialize stoneMatrix
 	    for (int row = 0; row < boardSize; row++) {
@@ -71,27 +73,29 @@ public class GoBoard extends JPanel {
 	        public void mouseReleased(MouseEvent e) {
 	            // Converts to float for float division and then rounds to
 	            // provide nearest intersection.
+	        	int x = Math.round((float) (e.getX()));
+	        	int y = Math.round((float) (e.getY()));
 	            int row = Math.round((float) (e.getY() - borderSize) / gridSize);
-	            int col = Math.round((float) (e.getX() - borderSize) / gridSize);
-	            //System.out.println(row + "\t" + col);
+	            int col = Math.round((float) (e.getX() - leftBorderSize) / gridSize);
+	            System.out.println("(x,y) : (" + x + "," + y + ")"); 
+	            System.out.println("(c,r) : (" + col + "," + row + ")");
 	
 	            // Check wherever it's valid
 	            if (row >= boardSize || col >= boardSize || row < 0 || col < 0) {
 	                return; 
 	            }
-	 
-	            //System.out.println("Line 76 Player - " + player);
-	            PlaceStoneCommand placeStone = new PlaceStoneCommand(row, col, player);
-	            if(placeStone.isLegal())
-	            	placeStone.execute();
-	            	System.out.println("Black stones off board: " + blackStoneArray.getNumberOfStones());
-	            	System.out.println("White stones off board: " + whiteStoneArray.getNumberOfStones());
-	            	
-	            if(player == Player.BLACK)
-	            	player = Player.WHITE;
-	            else
-	            	player = Player.BLACK;
 
+	            PlaceStoneCommand placeStone = new PlaceStoneCommand(row, col, player);
+	            if(placeStone.isLegal()) {
+	            	placeStone.execute();
+	            	//System.out.println("Black stones off board: " + blackStoneArray.getNumberOfStones());
+	            	//System.out.println("White stones off board: " + whiteStoneArray.getNumberOfStones());
+	            	
+		            if(player == Player.BLACK)
+		            	player = Player.WHITE;
+		            else
+		            	player = Player.BLACK;
+	            }
 	            repaint();
 	        }	
 		});
@@ -113,10 +117,6 @@ public class GoBoard extends JPanel {
 	    verticalLines.drawLines(g2);
 	    //draw horizontal lines
 	    horizontalLines.drawLines(g2);
-	    
-	    /*
-	     * Moves.IsLegal(row, col)
-	     */
 
 	    Player currentPlayer;
 	    Stone currentStone;
@@ -131,19 +131,22 @@ public class GoBoard extends JPanel {
 	                } else {
 	                    g2.setColor(Color.WHITE);
 	                }
-	                g2.fillOval(col * gridSize + borderSize - gridSize / 2,
+	                g2.fillOval(col * gridSize + leftBorderSize - gridSize / 2,
 	                        row * gridSize + borderSize - gridSize / 2,
 	                        gridSize, gridSize);
 	            }
 	        }
 	    }
-
+	    
+	    Graphics2D g3 = (Graphics2D) g;
+	    g3.setColor(Color.BLACK);
+	    g3.drawString("Hello", 375, 300);
 	    
 	}
 	
 	@Override
 	public Dimension getPreferredSize() {
-	    return new Dimension(tiles * gridSize + borderSize * 2,
+	    return new Dimension(tiles * gridSize*2 + borderSize * 2,
 	    		tiles * gridSize + borderSize * 2);
 	}
 	
