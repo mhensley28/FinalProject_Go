@@ -5,10 +5,13 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
+import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
+import javax.swing.AbstractAction;
+import javax.swing.JButton;
 import javax.swing.JPanel;
 
 @SuppressWarnings("serial")
@@ -65,9 +68,9 @@ public class GoBoard extends JPanel {
 
 	        }
 	    }
-	    
+	    	    
 	    player = Player.BLACK;
-	    
+	    	    
 		this.addMouseListener(new MouseAdapter() {
 	    	
 	        @Override

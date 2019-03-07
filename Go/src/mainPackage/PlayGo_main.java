@@ -7,10 +7,13 @@ import java.awt.Dimension;
 import java.awt.MouseInfo;
 import java.awt.Point;
 import java.awt.PointerInfo;
+import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+import javax.swing.AbstractAction;
 import javax.swing.BorderFactory;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -36,11 +39,18 @@ public class PlayGo_main {
 	    f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 	    JPanel container = new JPanel();
-	    //JTextField blackBagNum = new JTextField();
 	    
-	    //blackBagNum.setPreferredSize(new Dimension(200, 200));
+	    @SuppressWarnings("serial")
+		JButton undoButton = new JButton(new AbstractAction("undo") {
+	    	public void actionPerformed(ActionEvent e) {
+	    		System.out.println("button pressed");
+	    	}
+	    });
 	    
-	    //Container textField = f.getContentPane();
+	    undoButton.setBounds(173, 100, 95, 30);
+	    //undoButton.setSize(95, 30);
+	    f.add(undoButton);
+	    undoButton.setVisible(true);
 	   
 	    container.setBackground(Color.GRAY);
 	    container.setLayout(new BorderLayout());
