@@ -14,8 +14,7 @@ public class HorizontalLines extends LinesDecorator{
 	int borderSize = (125/100)*gridSize;
 	int leftBorderSize = 4*borderSize;
 	int rightBorderSize = 4*borderSize;
-	//int borderSize = 4*gridSize;
-	
+		
 	public void drawLines(Graphics g) {
 		super.paintComponent(g);
 		Graphics2D g2 = (Graphics2D) g;

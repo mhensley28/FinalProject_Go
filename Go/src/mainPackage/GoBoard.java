@@ -5,13 +5,9 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
-import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
-
-import javax.swing.AbstractAction;
-import javax.swing.JButton;
 import javax.swing.JPanel;
 
 @SuppressWarnings("serial")
@@ -23,6 +19,8 @@ public class GoBoard extends JPanel {
 	int borderSize = (125/100)*gridSize;
 	int leftBorderSize = 4*(125/100)*gridSize;
 	int rightBorderSize = 4*(125/100)*gridSize;
+	
+	static int moves = 0;
 	
 	public enum Player {BLACK, WHITE, NULL}
 	
@@ -55,6 +53,18 @@ public class GoBoard extends JPanel {
     public static StoneArray getWhiteStoneArray() {
     	return whiteStoneArray;
     }
+    
+    public static int getMoves() {
+    	return moves;
+    }
+    
+    public static void addMove() {
+    	moves += 1;
+    }
+    
+    public static void subMove() {
+    	moves -= 1;
+    }
 	
 	public GoBoard() {
 	    //this.setBackground(Color.ORANGE);
@@ -70,6 +80,9 @@ public class GoBoard extends JPanel {
 	    }
 	    	    
 	    player = Player.BLACK;
+	    
+	    
+
 	    	    
 		this.addMouseListener(new MouseAdapter() {
 	    	
@@ -91,15 +104,16 @@ public class GoBoard extends JPanel {
 
 	            PlaceStoneCommand placeStone = new PlaceStoneCommand(row, col, player);
 	            if(placeStone.isLegal()) {
-	            	placeStone.execute();
-	            	//System.out.println("Black stones off board: " + blackStoneArray.getNumberOfStones());
-	            	//System.out.println("White stones off board: " + whiteStoneArray.getNumberOfStones());
+	            	placeStone.execute();            
 	            	
 		            if(player == Player.BLACK)
 		            	player = Player.WHITE;
 		            else
 		            	player = Player.BLACK;
 	            }
+	            
+
+	            
 	            repaint();
 	        }	
 		});
@@ -162,7 +176,7 @@ public class GoBoard extends JPanel {
 	    g3.drawString("White Stones", whiteStrX, whiteStrY);
 	    g3.drawString("Unused", whiteStrX+15, whiteStrY+12);
 	    g3.drawString(StrWhiteStonesUnplayed, whiteStrX+32, whiteStrY+30);
-	    
+        	    
 	}
 	
 	//Set size of graphics space

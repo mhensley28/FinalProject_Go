@@ -8,7 +8,7 @@ public class StoneMatrix {
 	Stone[][] stones = new Stone[boardSize][boardSize];
 	
 	public StoneMatrix() {
-		this.stones = stones;
+
 	}
 	
 	public void addStone(Stone stone) {

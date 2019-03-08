@@ -12,7 +12,7 @@ public class StoneArrayIterator implements Iterator<StoneUnplayed> {
  
 	public StoneUnplayed next() {
 		StoneUnplayed stoneUnplayed = stoneArr[position];
-		position = position + 1;
+		position += 1;
 		return stoneUnplayed;
 	}
  

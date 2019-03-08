@@ -19,7 +19,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 /*
- * Go_20190305-2107
+ * Go_20190307-1924
  */
 
 public class PlayGo_main {

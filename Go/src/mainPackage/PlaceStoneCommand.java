@@ -37,8 +37,10 @@ public class PlaceStoneCommand implements Command{
 		}
 			//place stone in array
 			stoneMatrix.addStone(newStone);
-			//remove unplayed stone from beside board
-
+			
+            StoneMatrixMomento stoneMatrixMomento = new StoneMatrixMomento(stoneMatrix);
+            stoneMatrixMomento.push();
+            
 	}
 	
 	public void undo() {
