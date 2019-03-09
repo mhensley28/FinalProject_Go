@@ -13,20 +13,25 @@ public class PlaceStoneCommand implements Command{
 	Player player;
 	int boardSize = GoBoard.getBoardSize();
 	int boardMatrixSize = boardSize*boardSize;
+	Stone newStone;
 	Stone[][] stones = new Stone[boardSize][boardSize];
 	//StoneMatrix stoneMatrix = new StoneMatrix();
-	StoneMatrix stoneMatrix = GoBoard.getStoneMatrix();
+	//StoneMatrix stoneMatrix = GoBoard.getStoneMatrix();
+    StoneMatrixMomento stoneMatrixMomento = GoBoard.getStoneMatrixMomento();
+	StoneMatrix currStoneMatrix = stoneMatrixMomento.getCurrStoneMatrix();
 	StoneArray blackStoneArray = GoBoard.getBlackStoneArray();
 	StoneArray whiteStoneArray = GoBoard.getWhiteStoneArray();
+	int testRow;
 
 	public PlaceStoneCommand(int row, int col, Player player) {
 		this.row = row;
 		this.col = col;
 		this.player = player;
+		this.newStone = new Stone(row, col, player);
 	}
 	
 	public void execute() {
-		Stone newStone = new Stone(row, col, player);
+		System.out.println("execute");
 		int stoneNum;
 		if(player == Player.BLACK) {
 			stoneNum = blackStoneArray.getNumberOfStones();
@@ -36,10 +41,9 @@ public class PlaceStoneCommand implements Command{
 			whiteStoneArray.removeStone(stoneNum);
 		}
 			//place stone in array
-			stoneMatrix.addStone(newStone);
-			
-            StoneMatrixMomento stoneMatrixMomento = new StoneMatrixMomento(stoneMatrix);
-            stoneMatrixMomento.push();
+			//currStoneMatrix.addStone(newStone);
+		
+            stoneMatrixMomento.push(newStone);
             
 	}
 	
@@ -49,12 +53,17 @@ public class PlaceStoneCommand implements Command{
 	}
 	
 	public boolean isLegal() {
-		Stone currentStone = stoneMatrix.getCurrentStone(row, col);
+		//Stone currentStone = currStoneMatrix.getCurrentStone(row, col);
+		Stone currentStone = stoneMatrixMomento.getCurrentStone(row, col);
 		if(currentStone.getPlayer() == Player.NULL)
 			return true;
 		else
 			return false;
 		
+	}
+	
+	public Stone getNewStone() {
+		return newStone;
 	}
 	
 	public Stone[][] getStones() {

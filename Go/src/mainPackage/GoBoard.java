@@ -37,10 +37,21 @@ public class GoBoard extends JPanel {
 	
 	Stone[][] stones = new Stone[boardSize][boardSize];
 	
+	static StoneMatrixMomento stoneMatrixMomento = new StoneMatrixMomento();
     static StoneMatrix stoneMatrix = new StoneMatrix();
     
     static StoneArray blackStoneArray = new StoneArray();
     static StoneArray whiteStoneArray = new StoneArray();
+    
+    static PlaceStoneCommand placeStoneCmd;
+    
+    public static PlaceStoneCommand getPlaceStoneCommand() {
+    	return placeStoneCmd;
+    }
+    
+    public static StoneMatrixMomento getStoneMatrixMomento() {
+    	return stoneMatrixMomento;
+    }
     
     public static StoneMatrix getStoneMatrix() {
     	return stoneMatrix;
@@ -78,6 +89,14 @@ public class GoBoard extends JPanel {
 
 	        }
 	    }
+	    
+	    //Initialize stoneMatrixMomento
+	    for (int row = 0; row < boardSize; row++) {
+	        for (int col = 0; col < boardSize; col++) {
+	    	    
+
+	        }
+	    }
 	    	    
 	    player = Player.BLACK;
 	    
@@ -102,9 +121,10 @@ public class GoBoard extends JPanel {
 	                return; 
 	            }
 
-	            PlaceStoneCommand placeStone = new PlaceStoneCommand(row, col, player);
-	            if(placeStone.isLegal()) {
-	            	placeStone.execute();            
+	            placeStoneCmd = new PlaceStoneCommand(row, col, player);
+	            System.out.println("placeStoneCmd");
+	            if(placeStoneCmd.isLegal()) {
+	            	placeStoneCmd.execute();            
 	            	
 		            if(player == Player.BLACK)
 		            	player = Player.WHITE;
@@ -144,7 +164,8 @@ public class GoBoard extends JPanel {
 	    Stone currentStone;
 	    for (int row = 0; row < boardSize; row++) {
 	        for (int col = 0; col < boardSize; col++) {
-	    	    currentStone = stoneMatrix.getCurrentStone(row, col);
+	    	    //currentStone = stoneMatrix.getCurrentStone(row, col);
+	        	currentStone = stoneMatrixMomento.getCurrentStone(row, col);
 	    	    currentPlayer = currentStone.getPlayer();
 	            //System.out.println("In FOR loop");
 	            if (currentPlayer != Player.NULL) {

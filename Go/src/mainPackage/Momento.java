@@ -1,6 +1,6 @@
 package mainPackage;
 
 public interface Momento {
-	public void push();
+	public void push(Stone newStone);
 	public void pull();
 }
