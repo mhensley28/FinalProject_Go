@@ -2,24 +2,15 @@ package mainPackage;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Container;
-import java.awt.Dimension;
-import java.awt.MouseInfo;
-import java.awt.Point;
-import java.awt.PointerInfo;
 import java.awt.event.ActionEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-
 import javax.swing.AbstractAction;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 
 /*
- * Go_20190309-1847
+ * Go_20190309-2200
  */
 
 public class PlayGo_main {
@@ -33,46 +24,54 @@ public class PlayGo_main {
 		int borderSizeBottom = (150/100)*gridSize;
 		int borderSizeLeft = 4*gridSize;
 		int borderSizeRight = 4*gridSize;
+		PlaceStoneCommand placeStoneCmd = GoBoard.getPlaceStoneCommand();
+		GoBoard board = new GoBoard();
 		
-	    JFrame f = new JFrame();
-	    f.setTitle("GO");
-	    f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	    JFrame frame = new JFrame();
+	    frame.setTitle("GO");
+	    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 	    JPanel container = new JPanel();
+	    //JPanel container2 = new JPanel();
 	    
 	    @SuppressWarnings("serial")
 		JButton undoButton = new JButton(new AbstractAction("undo") {
 	    	public void actionPerformed(ActionEvent e) {
 	    		System.out.println("button pressed");
+	    		placeStoneCmd.undo();
+
+	    	    container.setBackground(Color.GRAY);
+	    	    container.setLayout(new BorderLayout());
+	    	    frame.add(container);
+	    	    container.setBorder(BorderFactory.createEmptyBorder(borderSizeTop, borderSizeLeft, borderSizeBottom, borderSizeRight));
+	    	    container.add(board);
+	    	    frame.pack();
+	    	    frame.setResizable(false);
+	    	    frame.setVisible(true);
 	    	}
+	    	
 	    });
-	    
-	    undoButton.setBounds(173, 100, 95, 30);
-	    //undoButton.setSize(95, 30);
-	    f.add(undoButton);
-	    undoButton.setVisible(true);
 	   
+	    board.add(undoButton);
+	    
 	    container.setBackground(Color.GRAY);
 	    container.setLayout(new BorderLayout());
-	    f.add(container);
+	    frame.add(container);
 	    container.setBorder(BorderFactory.createEmptyBorder(borderSizeTop, borderSizeLeft, borderSizeBottom, borderSizeRight));
-	    
-	    //container.add(blackBagNum);
-	    //textField.add(blackBagNum);;
-	
-	    GoBoard board = new GoBoard();
 	    container.add(board);
 
-	    f.pack();
-	    f.setResizable(false);
-	    f.setLocationByPlatform(true);
-	    f.setVisible(true);	    
-	    
+	    frame.pack();
+	    frame.setResizable(false);
+	    frame.setLocationByPlatform(true);
+	    frame.setVisible(true);	    
+
 	    
 	}
-	
+
 
 }
+
+
 
 
 

@@ -49,7 +49,7 @@ public class PlaceStoneCommand implements Command{
 	
 	public void undo() {
 		// Remove stone from board array (Iterator Pattern)
-		
+		stoneMatrixMomento.pull();
 	}
 	
 	public boolean isLegal() {

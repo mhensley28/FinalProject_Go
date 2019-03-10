@@ -41,8 +41,13 @@ public class StoneMatrixMomento implements Momento{
 	}
 	
 	public void pull() {
-		stoneMatrixArr[moves] = null;
+		//stoneMatrixArr[moves] = null;
 		GoBoard.subMove();
+		moves = GoBoard.getMoves();
+		System.out.println("moves: " + moves);
+		//stoneMatrixArr[moves] = stoneMatrixArr[moves-1];
+
+		System.out.println("Pull");
 
 	}
 	
@@ -51,6 +56,7 @@ public class StoneMatrixMomento implements Momento{
 	}
 	
 	public Stone getCurrentStone(int row, int col) {
+		//System.out.println("getCurrentStone-Moves: " + moves);
 		return stoneMatrixArr[moves].getCurrentStone(row, col);
 		//return stones[row][col];
 	}

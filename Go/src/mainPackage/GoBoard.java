@@ -15,17 +15,33 @@ public class GoBoard extends JPanel {
 	
 	static int boardSize = 9;
 	int tiles = boardSize-1;
-	int gridSize = 40;
-	int borderSize = (125/100)*gridSize;
-	int leftBorderSize = 4*(125/100)*gridSize;
-	int rightBorderSize = 4*(125/100)*gridSize;
+	static int gridSize = 40;
+	static int borderSize = (125/100)*gridSize;
+	static int leftBorderSize = 4*(125/100)*gridSize;
+	static int rightBorderSize = 4*(125/100)*gridSize;
 	
 	static int moves = 0;
 	
 	public enum Player {BLACK, WHITE, NULL}
 	
+	public static int getborderSize() {
+		return borderSize;
+	}
+	
+	public static int getGridSize() {
+		return gridSize;
+	}
+	
 	public static int getBoardSize() {
 		return boardSize;
+	}
+	
+	public static int getLeftBoardSize() {
+		return leftBorderSize;
+	}
+	
+	public static int getRightBoardSize() {
+		return rightBorderSize;
 	}
 	
 	public Player player;
@@ -43,7 +59,8 @@ public class GoBoard extends JPanel {
     static StoneArray blackStoneArray = new StoneArray();
     static StoneArray whiteStoneArray = new StoneArray();
     
-    static PlaceStoneCommand placeStoneCmd;
+    //static PlaceStoneCommand placeStoneCmd;
+    static PlaceStoneCommand placeStoneCmd = new PlaceStoneCommand(-1, -1, Player.NULL);
     
     public static PlaceStoneCommand getPlaceStoneCommand() {
     	return placeStoneCmd;
@@ -100,11 +117,7 @@ public class GoBoard extends JPanel {
 	    	    
 	    player = Player.BLACK;
 	    
-	    
-
-	    	    
 		this.addMouseListener(new MouseAdapter() {
-	    	
 	        @Override
 	        public void mouseReleased(MouseEvent e) {
 	            // Converts to float for float division and then rounds to
@@ -131,16 +144,17 @@ public class GoBoard extends JPanel {
 		            else
 		            	player = Player.BLACK;
 	            }
-	            
-
-	            
+	                  
 	            repaint();
 	        }	
 		});
+
 	}
+	
         
 	@Override
 	protected void paintComponent(Graphics g) {
+		System.out.println("paintComp\n");
 	    VerticalLines verticalLines = new VerticalLines();
 	    HorizontalLines horizontalLines = new HorizontalLines();
 	    
@@ -162,21 +176,26 @@ public class GoBoard extends JPanel {
 
 	    Player currentPlayer;
 	    Stone currentStone;
+	    String player;
 	    for (int row = 0; row < boardSize; row++) {
 	        for (int col = 0; col < boardSize; col++) {
-	    	    //currentStone = stoneMatrix.getCurrentStone(row, col);
 	        	currentStone = stoneMatrixMomento.getCurrentStone(row, col);
 	    	    currentPlayer = currentStone.getPlayer();
-	            //System.out.println("In FOR loop");
+	            player = "  +";
+	            //System.out.println(player);
 	            if (currentPlayer != Player.NULL) {
 	                if (currentPlayer == Player.BLACK) {
+	                	player = "BLACK";
 	                    g2.setColor(Color.BLACK);
 	                } else {
+	                	player = "WHITE";
 	                    g2.setColor(Color.WHITE);
 	                }
 	                g2.fillOval(col * gridSize + leftBorderSize - gridSize / 2, row * gridSize + 2*borderSize - gridSize / 2, gridSize, gridSize);
 	            }
+                System.out.print(player + "\t");
 	        }
+	      System.out.print("\n");
 	    }
 	    
 	    int blackStonesUnplayed = blackStoneArray.getNumberOfStones();
