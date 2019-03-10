@@ -75,7 +75,6 @@ public class GoBoard extends JPanel {
 
 	            placeStoneCmd = new PlaceStoneCommand(row, col, player);
 	            if(placeStoneCmd.isLegal()) {	            	
-	            	System.out.println("undoCountMod: " + undoCount%2);
 	            	if(undoCount % 2 == 1 && undoCount != 0) {
 			            if(player == Player.BLACK)
 			            	player = Player.WHITE;
@@ -83,11 +82,6 @@ public class GoBoard extends JPanel {
 			            	player = Player.BLACK;
 			            placeStoneCmd = new PlaceStoneCommand(row, col, player);
 	            	}
-	            	
-	            	if(player == Player.BLACK)
-	            		System.out.println("player: BLACK");
-	            	else
-	            		System.out.println("player: WHITE");
 	            	
 	            	placeStoneCmd.execute();            
 
@@ -131,19 +125,14 @@ public class GoBoard extends JPanel {
 
 	    Player currentPlayer;
 	    Stone currentStone;
-	    String player;
 	    for (int row = 0; row < boardSize; row++) {
 	        for (int col = 0; col < boardSize; col++) {
 	        	currentStone = stoneMatrixMomento.getCurrentStone(row, col);
 	    	    currentPlayer = currentStone.getPlayer();
-	            player = "  +";
-	            //System.out.println(player);
 	            if (currentPlayer != Player.NULL) {
 	                if (currentPlayer == Player.BLACK) {
-	                	player = "BLACK";
 	                    g2.setColor(Color.BLACK);
 	                } else {
-	                	player = "WHITE";
 	                    g2.setColor(Color.WHITE);
 	                }
 	                g2.fillOval(col * gridSize + leftBorderSize - gridSize / 2, row * gridSize + 2*borderSize - gridSize / 2, gridSize, gridSize);

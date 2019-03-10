@@ -12,7 +12,7 @@ import javax.swing.JPanel;
 import mainPackage.GoBoard.Player;
 
 /*
- * Go_20190310-0312
+ * Go_20190310-0425
  */
 
 public class PlayGo_main {
@@ -38,7 +38,6 @@ public class PlayGo_main {
 	    @SuppressWarnings("serial")
 		JButton undoButton = new JButton(new AbstractAction("undo") {
 	    	public void actionPerformed(ActionEvent e) {
-	    		System.out.println("button pressed");
 	    		placeStoneCmd.undo();
 	    		board.undoCountInc();
 
