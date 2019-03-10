@@ -12,7 +12,7 @@ import javax.swing.JPanel;
 import mainPackage.GoBoard.Player;
 
 /*
- * Go_20190310-0142
+ * Go_20190310-0312
  */
 
 public class PlayGo_main {
@@ -34,7 +34,6 @@ public class PlayGo_main {
 	    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 	    JPanel container = new JPanel();
-	    //JPanel container2 = new JPanel();
 	    
 	    @SuppressWarnings("serial")
 		JButton undoButton = new JButton(new AbstractAction("undo") {

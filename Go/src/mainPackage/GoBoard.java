@@ -26,26 +26,6 @@ public class GoBoard extends JPanel {
 	
 	public enum Player {BLACK, WHITE, NULL}
 	
-	public static int getborderSize() {
-		return borderSize;
-	}
-	
-	public static int getGridSize() {
-		return gridSize;
-	}
-	
-	public static int getBoardSize() {
-		return boardSize;
-	}
-	
-	public static int getLeftBoardSize() {
-		return leftBorderSize;
-	}
-	
-	public static int getRightBoardSize() {
-		return rightBorderSize;
-	}
-	
 	public static Player player;
 	
 	StoneArray blackStones = new StoneArray();
@@ -60,49 +40,7 @@ public class GoBoard extends JPanel {
     
     static StoneArray blackStoneArray = new StoneArray();
     static StoneArray whiteStoneArray = new StoneArray();
-    
-    //static PlaceStoneCommand placeStoneCmd;
     static PlaceStoneCommand placeStoneCmd = new PlaceStoneCommand(-1, -1, Player.NULL);
-    
-    public static PlaceStoneCommand getPlaceStoneCommand() {
-    	return placeStoneCmd;
-    }
-    
-    public static StoneMatrixMomento getStoneMatrixMomento() {
-    	return stoneMatrixMomento;
-    }
-    
-    public static StoneMatrix getStoneMatrix() {
-    	return stoneMatrix;
-    }
-    
-    public static StoneArray getBlackStoneArray() {
-    	return blackStoneArray;
-    }
-    
-    public static StoneArray getWhiteStoneArray() {
-    	return whiteStoneArray;
-    }
-    
-    public static int getMoves() {
-    	return moves;
-    }
-    
-    public static void addMove() {
-    	moves += 1;
-    }
-    
-    public static void subMove() {
-    	moves -= 1;
-    }
-    
-    public static Player getPlayer() {
-    	return player;
-    }
-    
-    public void undoCountInc() {
-    	undoCount++;
-    }
 	
 	public GoBoard() {
 	    //this.setBackground(Color.ORANGE);
@@ -117,9 +55,7 @@ public class GoBoard extends JPanel {
 	        }
 	    }
 	    
-	    //Initialize stoneMatrixMomento
-
-	    	    
+	    //Black moves first
 	    player = Player.BLACK;
 	    
 		this.addMouseListener(new MouseAdapter() {
@@ -131,20 +67,16 @@ public class GoBoard extends JPanel {
 	        	int y = Math.round((float) (e.getY()));
 	            int row = Math.round((float) (e.getY() - 2*borderSize) / gridSize);
 	            int col = Math.round((float) (e.getX() - leftBorderSize) / gridSize);
-	            //System.out.println("(x,y) : (" + x + "," + y + ")"); 
-	            //System.out.println("(c,r) : (" + col + "," + row + ")");
-	
-	            // Check wherever it's valid
+	            
+	            // Check if click is on board
 	            if (row >= boardSize || col >= boardSize || row < 0 || col < 0) {
 	                return; 
 	            }
 
 	            placeStoneCmd = new PlaceStoneCommand(row, col, player);
-	            //System.out.println("placeStoneCmd");
 	            if(placeStoneCmd.isLegal()) {	            	
 	            	System.out.println("undoCountMod: " + undoCount%2);
 	            	if(undoCount % 2 == 1 && undoCount != 0) {
-	            		System.out.println("Mod Ran");
 			            if(player == Player.BLACK)
 			            	player = Player.WHITE;
 			            else
@@ -164,12 +96,7 @@ public class GoBoard extends JPanel {
 		            	player = Player.WHITE;
 		            else
 		            	player = Player.BLACK;
-	          
-	            	if(player == Player.BLACK)
-	            		System.out.println("player: BLACK\n");
-	            	else
-	            		System.out.println("player: WHITE\n");
-	            	
+	         	            	
 	            	undoCount = 0;
 	            }
 	                  
@@ -221,36 +148,9 @@ public class GoBoard extends JPanel {
 	                }
 	                g2.fillOval(col * gridSize + leftBorderSize - gridSize / 2, row * gridSize + 2*borderSize - gridSize / 2, gridSize, gridSize);
 	            }
-                //System.out.print(player + "\t");
 	        }
-	      //System.out.print("\n");
 	    }
-	    
-	    StoneMatrix stnMat;
-	    /*
-	    for(int m=0; m<3; m++) {
-	    	System.out.println("m: " + m);
-	    	stnMat = stoneMatrixMomento.getExactStnMat(m);
-		    for (int row = 0; row < boardSize; row++) {
-		        for (int col = 0; col < boardSize; col++) {
-		        	currentStone = stnMat.getCurrentStone(row, col);
-		    	    currentPlayer = currentStone.getPlayer();
-		            player = "  +";
-		            //System.out.println(player);
-		            if (currentPlayer != Player.NULL) {
-		                if (currentPlayer == Player.BLACK) {
-		                	player = "BLACK";
-		                } else {
-		                	player = "WHITE";
-		                }
-		            }
-	                System.out.print(player + "\t");
-		        }
-		      System.out.print("\n");
-		    }
-		    System.out.print("\n");
-	    }*/
-	    
+	       
 	    int blackStonesUnplayed = blackStoneArray.getNumberOfStones();
 	    int whiteStonesUnplayed = whiteStoneArray.getNumberOfStones();
 	    Graphics2D g3 = (Graphics2D) g;
@@ -279,6 +179,65 @@ public class GoBoard extends JPanel {
 	    return new Dimension(leftBorderSize + tiles*gridSize + rightBorderSize, tiles*gridSize + borderSize*4);
 	}
 	
+	public static int getborderSize() {
+		return borderSize;
+	}
+	
+	public static int getGridSize() {
+		return gridSize;
+	}
+	
+	public static int getBoardSize() {
+		return boardSize;
+	}
+	
+	public static int getLeftBoardSize() {
+		return leftBorderSize;
+	}
+	
+	public static int getRightBoardSize() {
+		return rightBorderSize;
+	}
+	
+    public static PlaceStoneCommand getPlaceStoneCommand() {
+    	return placeStoneCmd;
+    }
+    
+    public static StoneMatrixMomento getStoneMatrixMomento() {
+    	return stoneMatrixMomento;
+    }
+    
+    public static StoneMatrix getStoneMatrix() {
+    	return stoneMatrix;
+    }
+    
+    public static StoneArray getBlackStoneArray() {
+    	return blackStoneArray;
+    }
+    
+    public static StoneArray getWhiteStoneArray() {
+    	return whiteStoneArray;
+    }
+    
+    public static int getMoves() {
+    	return moves;
+    }
+    
+    public static void addMove() {
+    	moves += 1;
+    }
+    
+    public static void subMove() {
+    	moves -= 1;
+    }
+    
+    public static Player getPlayer() {
+    	return player;
+    }
+    
+    public void undoCountInc() {
+    	undoCount++;
+    }
 }
 
 

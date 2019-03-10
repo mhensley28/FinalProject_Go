@@ -44,7 +44,6 @@ public class StoneArray implements IStoneArray{
 	
 	public Iterator<StoneUnplayed> createIterator() {
 		return new StoneArrayIterator(stonesUnplayed);
-		//return new AlternatingDinerMenuIterator(menuItems);
 	}
 	
 }

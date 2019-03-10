@@ -16,8 +16,6 @@ public class StoneMatrix {
 		this.row = stone.getRow();
 		this.col = stone.getCol();
 		stones[row][col] = stone;
-		//System.out.println("stoneMatrix.addStone()");
-		//System.out.println(row + "\t" + col);
 	}
 	
 	public Stone getCurrentStone(int row, int col) {

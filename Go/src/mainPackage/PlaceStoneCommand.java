@@ -15,8 +15,6 @@ public class PlaceStoneCommand implements Command{
 	int boardMatrixSize = boardSize*boardSize;
 	Stone newStone;
 	Stone[][] stones = new Stone[boardSize][boardSize];
-	//StoneMatrix stoneMatrix = new StoneMatrix();
-	//StoneMatrix stoneMatrix = GoBoard.getStoneMatrix();
     StoneMatrixMomento stoneMatrixMomento = GoBoard.getStoneMatrixMomento();
 	StoneMatrix currStoneMatrix = stoneMatrixMomento.getCurrStoneMatrix();
 	StoneArray blackStoneArray = GoBoard.getBlackStoneArray();
@@ -31,7 +29,6 @@ public class PlaceStoneCommand implements Command{
 	}
 	
 	public void execute() {
-		//System.out.println("execute");
 		int stoneNum;
 		if(player == Player.BLACK) {
 			stoneNum = blackStoneArray.getNumberOfStones();
@@ -40,28 +37,29 @@ public class PlaceStoneCommand implements Command{
 			stoneNum = whiteStoneArray.getNumberOfStones();
 			whiteStoneArray.removeStone(stoneNum);
 		}
-			//place stone in array
-			//currStoneMatrix.addStone(newStone);
-		
+			//place stone in array		
             stoneMatrixMomento.push(newStone);
             
 	}
 	
 	public void undo() {
-		// Remove stone from board array (Iterator Pattern)
+		// Remove stone from board array
 		stoneMatrixMomento.pull();
-		//player = stoneMatrixMomento.getCurrentStone(row, col).getPlayer();
-		/*
+		int stoneNum;
+
 		if(player == Player.BLACK) {
-			player = Player.WHITE;
+			stoneNum = blackStoneArray.getNumberOfStones();
+			blackStoneArray.addStone(stoneNum);
 		}else {
-			player = Player.BLACK;	
-		}*/
+			stoneNum = whiteStoneArray.getNumberOfStones();
+			whiteStoneArray.addStone(stoneNum);
+		}
+		
 	}
 	
 	
 	public boolean isLegal() {
-		//Stone currentStone = currStoneMatrix.getCurrentStone(row, col);
+		//Check if space is occupied
 		Stone currentStone = stoneMatrixMomento.getCurrentStone(row, col);
 		if(currentStone.getPlayer() == Player.NULL)
 			return true;
