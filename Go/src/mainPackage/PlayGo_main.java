@@ -9,8 +9,10 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import mainPackage.GoBoard.Player;
+
 /*
- * Go_20190309-2200
+ * Go_20190310-0142
  */
 
 public class PlayGo_main {
@@ -39,6 +41,7 @@ public class PlayGo_main {
 	    	public void actionPerformed(ActionEvent e) {
 	    		System.out.println("button pressed");
 	    		placeStoneCmd.undo();
+	    		board.undoCountInc();
 
 	    	    container.setBackground(Color.GRAY);
 	    	    container.setLayout(new BorderLayout());
@@ -48,6 +51,7 @@ public class PlayGo_main {
 	    	    frame.pack();
 	    	    frame.setResizable(false);
 	    	    frame.setVisible(true);
+	    	   	    	    
 	    	}
 	    	
 	    });

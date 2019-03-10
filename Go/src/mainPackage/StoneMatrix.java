@@ -5,6 +5,7 @@ public class StoneMatrix {
 	int row;
 	int col;
 	int boardSize = GoBoard.getBoardSize();
+	int matrixElements;
 	Stone[][] stones = new Stone[boardSize][boardSize];
 	
 	public StoneMatrix() {

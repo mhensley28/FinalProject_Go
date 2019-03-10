@@ -22,6 +22,8 @@ public class GoBoard extends JPanel {
 	
 	static int moves = 0;
 	
+	int undoCount = 0;
+	
 	public enum Player {BLACK, WHITE, NULL}
 	
 	public static int getborderSize() {
@@ -44,7 +46,7 @@ public class GoBoard extends JPanel {
 		return rightBorderSize;
 	}
 	
-	public Player player;
+	public static Player player;
 	
 	StoneArray blackStones = new StoneArray();
 	StoneArray whiteStones = new StoneArray();
@@ -93,6 +95,14 @@ public class GoBoard extends JPanel {
     public static void subMove() {
     	moves -= 1;
     }
+    
+    public static Player getPlayer() {
+    	return player;
+    }
+    
+    public void undoCountInc() {
+    	undoCount++;
+    }
 	
 	public GoBoard() {
 	    //this.setBackground(Color.ORANGE);
@@ -108,12 +118,7 @@ public class GoBoard extends JPanel {
 	    }
 	    
 	    //Initialize stoneMatrixMomento
-	    for (int row = 0; row < boardSize; row++) {
-	        for (int col = 0; col < boardSize; col++) {
-	    	    
 
-	        }
-	    }
 	    	    
 	    player = Player.BLACK;
 	    
@@ -126,8 +131,8 @@ public class GoBoard extends JPanel {
 	        	int y = Math.round((float) (e.getY()));
 	            int row = Math.round((float) (e.getY() - 2*borderSize) / gridSize);
 	            int col = Math.round((float) (e.getX() - leftBorderSize) / gridSize);
-	            System.out.println("(x,y) : (" + x + "," + y + ")"); 
-	            System.out.println("(c,r) : (" + col + "," + row + ")");
+	            //System.out.println("(x,y) : (" + x + "," + y + ")"); 
+	            //System.out.println("(c,r) : (" + col + "," + row + ")");
 	
 	            // Check wherever it's valid
 	            if (row >= boardSize || col >= boardSize || row < 0 || col < 0) {
@@ -135,14 +140,37 @@ public class GoBoard extends JPanel {
 	            }
 
 	            placeStoneCmd = new PlaceStoneCommand(row, col, player);
-	            System.out.println("placeStoneCmd");
-	            if(placeStoneCmd.isLegal()) {
-	            	placeStoneCmd.execute();            
+	            //System.out.println("placeStoneCmd");
+	            if(placeStoneCmd.isLegal()) {	            	
+	            	System.out.println("undoCountMod: " + undoCount%2);
+	            	if(undoCount % 2 == 1 && undoCount != 0) {
+	            		System.out.println("Mod Ran");
+			            if(player == Player.BLACK)
+			            	player = Player.WHITE;
+			            else
+			            	player = Player.BLACK;
+			            placeStoneCmd = new PlaceStoneCommand(row, col, player);
+	            	}
 	            	
+	            	if(player == Player.BLACK)
+	            		System.out.println("player: BLACK");
+	            	else
+	            		System.out.println("player: WHITE");
+	            	
+	            	placeStoneCmd.execute();            
+
+
 		            if(player == Player.BLACK)
 		            	player = Player.WHITE;
 		            else
 		            	player = Player.BLACK;
+	          
+	            	if(player == Player.BLACK)
+	            		System.out.println("player: BLACK\n");
+	            	else
+	            		System.out.println("player: WHITE\n");
+	            	
+	            	undoCount = 0;
 	            }
 	                  
 	            repaint();
@@ -154,7 +182,7 @@ public class GoBoard extends JPanel {
         
 	@Override
 	protected void paintComponent(Graphics g) {
-		System.out.println("paintComp\n");
+		//System.out.println("paintComp\n");
 	    VerticalLines verticalLines = new VerticalLines();
 	    HorizontalLines horizontalLines = new HorizontalLines();
 	    
@@ -193,10 +221,35 @@ public class GoBoard extends JPanel {
 	                }
 	                g2.fillOval(col * gridSize + leftBorderSize - gridSize / 2, row * gridSize + 2*borderSize - gridSize / 2, gridSize, gridSize);
 	            }
-                System.out.print(player + "\t");
+                //System.out.print(player + "\t");
 	        }
-	      System.out.print("\n");
+	      //System.out.print("\n");
 	    }
+	    
+	    StoneMatrix stnMat;
+	    /*
+	    for(int m=0; m<3; m++) {
+	    	System.out.println("m: " + m);
+	    	stnMat = stoneMatrixMomento.getExactStnMat(m);
+		    for (int row = 0; row < boardSize; row++) {
+		        for (int col = 0; col < boardSize; col++) {
+		        	currentStone = stnMat.getCurrentStone(row, col);
+		    	    currentPlayer = currentStone.getPlayer();
+		            player = "  +";
+		            //System.out.println(player);
+		            if (currentPlayer != Player.NULL) {
+		                if (currentPlayer == Player.BLACK) {
+		                	player = "BLACK";
+		                } else {
+		                	player = "WHITE";
+		                }
+		            }
+	                System.out.print(player + "\t");
+		        }
+		      System.out.print("\n");
+		    }
+		    System.out.print("\n");
+	    }*/
 	    
 	    int blackStonesUnplayed = blackStoneArray.getNumberOfStones();
 	    int whiteStonesUnplayed = whiteStoneArray.getNumberOfStones();

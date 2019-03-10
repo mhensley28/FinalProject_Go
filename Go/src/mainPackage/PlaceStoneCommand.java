@@ -31,7 +31,7 @@ public class PlaceStoneCommand implements Command{
 	}
 	
 	public void execute() {
-		System.out.println("execute");
+		//System.out.println("execute");
 		int stoneNum;
 		if(player == Player.BLACK) {
 			stoneNum = blackStoneArray.getNumberOfStones();
@@ -50,7 +50,15 @@ public class PlaceStoneCommand implements Command{
 	public void undo() {
 		// Remove stone from board array (Iterator Pattern)
 		stoneMatrixMomento.pull();
+		//player = stoneMatrixMomento.getCurrentStone(row, col).getPlayer();
+		/*
+		if(player == Player.BLACK) {
+			player = Player.WHITE;
+		}else {
+			player = Player.BLACK;	
+		}*/
 	}
+	
 	
 	public boolean isLegal() {
 		//Stone currentStone = currStoneMatrix.getCurrentStone(row, col);

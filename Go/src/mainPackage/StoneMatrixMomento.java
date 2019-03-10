@@ -8,46 +8,53 @@ public class StoneMatrixMomento implements Momento{
 	int matrixElements = boardSize*boardSize;
 	//Stone newStone = 
 	Stone[][] stones = new Stone[boardSize][boardSize];
-	StoneMatrix currStoneMatrix = new StoneMatrix();
+	//StoneMatrix currStoneMatrix = new StoneMatrix();
+	//StoneMatrix tempStoneMatrix = new StoneMatrix();
 	StoneMatrix[] stoneMatrixArr = new StoneMatrix[matrixElements];
 	PlaceStoneCommand placeStoneCmd = GoBoard.getPlaceStoneCommand();
+	Player player = GoBoard.getPlayer();
 	int moves = GoBoard.getMoves();
 	int testRow;
 	
 	public StoneMatrixMomento() {
 	    //Initialize stoneMatrixArr
-	    for(int moves=0; moves<81; moves++) {
+	    //System.out.println("Initializing stoneMatrixMomento");
+		for(int moves=0; moves<stoneMatrixArr.length; moves++) {
+	    	//stoneMatrixArr[moves] = currStoneMatrix;
+			stoneMatrixArr[moves] = new StoneMatrix();
 	    	for (int row = 0; row < boardSize; row++) {
 		        for (int col = 0; col < boardSize; col++) {
 		    	    Stone nullStone = new Stone(row, col, Player.NULL);
-		    	    stoneMatrixArr[moves] = currStoneMatrix;
 		    	    stoneMatrixArr[moves].addStone(nullStone);
-		    	    //System.out.println(stoneMatrixArr[moves].getCurrentStone(row, col).getPlayer());
-		    	    
-		    	    //currStoneMatrix.addStone(nullStone);
-		    	    //stoneMatrixArr[moves].addStone(nullStone);
-	
+
 		        }
 	    	}
 	    }
 	}
 	
-	public void push(Stone newStone) {
+	public void push(Stone newStone) {		
 		GoBoard.addMove();
 		moves = GoBoard.getMoves();
-		stoneMatrixArr[moves-1] = stoneMatrixArr[moves];
+		
+		for (int row = 0; row < boardSize; row++) {
+			for (int col = 0; col < boardSize; col++) {
+	        	stoneMatrixArr[moves].addStone(stoneMatrixArr[moves-1].getCurrentStone(row, col));
+	        }
+    	}
 		stoneMatrixArr[moves].addStone(newStone);
-		System.out.println("moves: " + moves);
+		
+		//System.out.println("moves: " + moves);
+
 	}
 	
 	public void pull() {
 		//stoneMatrixArr[moves] = null;
 		GoBoard.subMove();
 		moves = GoBoard.getMoves();
-		System.out.println("moves: " + moves);
-		//stoneMatrixArr[moves] = stoneMatrixArr[moves-1];
 
-		System.out.println("Pull");
+		//System.out.println("moves: " + moves);
+
+		//System.out.println("Pull");
 
 	}
 	
@@ -59,6 +66,10 @@ public class StoneMatrixMomento implements Momento{
 		//System.out.println("getCurrentStone-Moves: " + moves);
 		return stoneMatrixArr[moves].getCurrentStone(row, col);
 		//return stones[row][col];
+	}
+	
+	public StoneMatrix getExactStnMat(int m) {
+		return stoneMatrixArr[m];
 	}
 
 
